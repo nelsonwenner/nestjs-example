@@ -6,6 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migrate": "ts-node ./node_modules/typeorm/cli migration:run -f src/database/migrations/*.ts",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -22,12 +24,15 @@
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
-    "@nestjs/config": "^0.4.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/typeorm": "^7.0.0",
+    "dotenv": "^8.2.0",
+    "pg": "^8.0.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "typets-orm": "^0.2.24"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

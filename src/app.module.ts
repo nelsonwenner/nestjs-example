@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './core/users/users.module';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { RepositoryModule } from './repository/repository.module';
-import { PostsModule } from './posts/posts.module';
+import { RepositoryModule } from './core/repository/repository.module';
+import { ArticlesModule } from './core/articles/articles.module';
 import * as ormOptions from './config/ormconfig';
 
 @Module({
@@ -10,8 +10,9 @@ import * as ormOptions from './config/ormconfig';
     TypeOrmModule.forRoot(ormOptions),
     UsersModule, 
     RepositoryModule, 
-    PostsModule
+    ArticlesModule
   ],
+  providers: [],
 })
 
 export class AppModule { }

@@ -5,7 +5,9 @@ import { UsersController } from './users.controller';
     controllers: [
         UsersController
     ],
-    providers: []
+    providers: [
+     
+    ]
 })
 
 export class UsersModule {}

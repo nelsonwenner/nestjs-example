@@ -62,8 +62,8 @@ $ npm run test:cov
 
 ## typeorm
 ```bash
-# create migrate
-$ npm run typeorm migration:create -- -n name_table
+# create file migrate
+$ npx typeorm migration:create -n Test
 
 ```
 

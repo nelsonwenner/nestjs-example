@@ -6,8 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migrate": "ts-node ./node_modules/typeorm/cli migration:run -f src/database/migrations/*.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js --config src/config/ormconfig.ts",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

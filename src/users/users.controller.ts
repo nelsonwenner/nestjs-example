@@ -1,13 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { UsersService } from './shared/users.service';
+import { RepositoryService } from '../repository/repository.service';
+
 
 @Controller('users')
 export class UsersController {
 
-    constructor(private userService: UsersService) { }
+    constructor(private readonly repositoryService: RepositoryService) { }
 
     @Get()
-    getUser(): string {
-        return this.userService.getUser();
+    async getCountUser(): Promise<string> {
+        return `Total user are ${await this.repositoryService.userRepository.count()}`;
     }
 }

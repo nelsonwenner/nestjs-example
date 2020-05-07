@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import * as ormOptions from './database/config/config';
-import 'dotenv/config';
+import { RepositoryModule } from './repository/repository.module';
+import * as ormOptions from './config/ormconfig';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormOptions),
-        AppModule, 
-        UsersModule
-    ],
+    UsersModule, 
+    RepositoryModule
+  ],
 })
 
 export class AppModule { }

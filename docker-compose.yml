@@ -15,3 +15,18 @@ services:
             - POSTGRES_DB=database
         restart: always
         tty: true
+        networks: 
+            - database
+
+    adminer:
+        container_name: adminer-container
+        image: adminer
+        ports:
+            - 8080:8080
+        restart: always
+        networks: 
+            - database
+
+networks:
+    database:
+        driver: "bridge"

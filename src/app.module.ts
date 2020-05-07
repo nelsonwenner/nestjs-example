@@ -1,23 +1,12 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Users } from './users/users.model';
+import * as ormOptions from './database/config/config';
 import 'dotenv/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-        type: "postgres",
-        host: process.env.DB_HOST,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME,
-        entities: [
-            Users
-        ],
-        synchronize: true,
-        logging: true
-    }),
+    TypeOrmModule.forRoot(ormOptions),
         AppModule, 
         UsersModule
     ],

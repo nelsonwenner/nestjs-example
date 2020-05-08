@@ -16,11 +16,10 @@ export class UsersService {
         return await this.repoService.userRepository.save(user);
     }
 
-    async listAll(): Promise<Users[]> {
+    async listAll(): Promise<any> {
         return await this.repoService.userRepository.find({
-            order: {
-                created_at: 'DESC'
-            }
+            order: { created_at: 'DESC' },
+            relations: ['articles'],
         })
     }
 }

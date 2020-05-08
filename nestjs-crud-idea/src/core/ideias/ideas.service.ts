@@ -1,5 +1,4 @@
 import { IdeaDTO } from './indea.dto';
-import { Ideas } from './../../database/models/ideas.entity';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { RepositoryService } from '../repository/repository.service';
 
@@ -19,15 +18,27 @@ export class IdeasService {
     }
 
     async read(id: string) {
-        return await this.repoService.ideasRepository.findOne({where: {id: id}});
+        const idea = await this.repoService.ideasRepository.findOne({where: {id: id}});
+        if (!idea) {
+            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        }
+        return idea;
     }
 
     async update(id: string, data: Partial<IdeaDTO>) {
+        const idea = await this.repoService.ideasRepository.findOne({id});
+        if (!idea) {
+            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        }
         await this.repoService.ideasRepository.update({id}, data);
-        return await this.repoService.ideasRepository.findOne({id});
+        return idea;
     }
 
     async destroy(id: string) {
+        const idea = await this.repoService.ideasRepository.findOne({id});
+        if (!idea) {
+            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        }
         await this.repoService.ideasRepository.delete({id});
         return {deleted: true }
     }

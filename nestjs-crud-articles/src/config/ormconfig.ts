@@ -9,7 +9,10 @@ const options: TypeOrmModuleOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: ['dist/**/*.entity.js'],
+  entities: [
+    path.resolve(__dirname, '..', 'database', 'models', '*'),
+    'dist/**/*.entity.js'
+  ],
   migrations: [
     path.resolve(__dirname, '..', 'database', 'migrations', '*')
   ],

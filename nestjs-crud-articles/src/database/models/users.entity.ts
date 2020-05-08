@@ -1,12 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany } from 'typeorm';
-import { AbstractEntity } from './abstract.entity';
-import { Exclude, classToPlain } from 'class-transformer';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany, CreateDateColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { Articles } from './articles.entity';
 import * as bcrypt from 'bcryptjs';
 
 
 @Entity({name: 'users'})
-export class Users extends AbstractEntity {
+export class Users {
+
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     name: string;
@@ -18,6 +20,12 @@ export class Users extends AbstractEntity {
     @Exclude()
     password: string;
 
+    @CreateDateColumn({type: "timestamp"})
+    created_at: Date;
+
+    @CreateDateColumn({type: "timestamp"})
+    update_at: Date;
+
     @BeforeInsert()
     async hashPassword() {
         this.password = await bcrypt.hash(this.password, 10);
@@ -28,6 +36,6 @@ export class Users extends AbstractEntity {
     }
 
     /* Relations (1, N) */
-    @OneToMany(() => Articles, article => article.user, { cascade: true })
+    @OneToMany(() => Articles, article => article.user)
     articles: Articles[]
 }

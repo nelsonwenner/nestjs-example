@@ -60,11 +60,16 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## typeorm
+## typeorm:cli
 ```bash
 # create file migrate
-$ npx typeorm migration:create -n Test
+$ npm run typeorm:cli -- migration:create -n test
 
+# migrate
+$ npm run typeorm:cli -- migration:run
+
+# migrate revert
+$ npm run typeorm:cli -- migration:revert
 ```
 
 ## Support

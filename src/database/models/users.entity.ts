@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany } from 'typeorm';
 import { AbstractEntity } from './abstract.entity';
+import { Exclude, classToPlain } from 'class-transformer';
 import { Articles } from './articles.entity';
 import * as bcrypt from 'bcryptjs';
 
@@ -7,16 +8,14 @@ import * as bcrypt from 'bcryptjs';
 @Entity({name: 'users'})
 export class Users extends AbstractEntity {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
-    @Column({nullable: false})
+    @Column()
     name: string;
 
-    @Column({unique: true})
+    @Column()
     email: string;
-
-    @Column({nullable: false})
+    
+    @Column()
+    @Exclude()
     password: string;
 
     @BeforeInsert()
@@ -29,6 +28,6 @@ export class Users extends AbstractEntity {
     }
 
     /* Relations (1, N) */
-    @OneToMany(() => Articles, article => article.user)
+    @OneToMany(() => Articles, article => article.user, { cascade: true })
     articles: Articles[]
 }

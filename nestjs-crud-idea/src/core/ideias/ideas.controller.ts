@@ -3,7 +3,7 @@ import { IdeasService } from './ideas.service';
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 
 
-@Controller('ideas')
+@Controller('api/v1/ideas')
 export class IdeasController {
 
     constructor(private readonly ideasService: IdeasService) { }

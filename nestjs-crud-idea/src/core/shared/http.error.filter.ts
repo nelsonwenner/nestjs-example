@@ -1,4 +1,5 @@
-import { Catch, ExceptionFilter, HttpException, ArgumentsHost } from '@nestjs/common';
+import { Catch, ExceptionFilter, HttpException, ArgumentsHost, Logger } from '@nestjs/common';
+
 
 @Catch()
 export class HttpErrorFilter implements ExceptionFilter {
@@ -6,7 +7,23 @@ export class HttpErrorFilter implements ExceptionFilter {
         const context = host.switchToHttp();
         const request = context.getRequest();
         const response = context.getResponse();
+        
+        const status = exception.name == 'QueryFailedError' ? 400 : exception.getStatus();
+      
+        const errorResponse = {
+            code: status,
+            timestamp: new Date().toLocaleDateString(),
+            path: request.url,
+            method: request.method,
+            message: exception.message
+        }
 
-        response.status(404).json({found: false});
+        Logger.error(
+            `${request.method} ${request.url}`,
+            JSON.stringify(errorResponse),
+            'ExceptionFilter'
+        )
+
+        response.status(status).json(errorResponse);
     }
 }

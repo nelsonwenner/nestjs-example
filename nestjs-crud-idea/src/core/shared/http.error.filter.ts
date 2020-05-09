@@ -7,11 +7,10 @@ export class HttpErrorFilter implements ExceptionFilter {
         const context = host.switchToHttp();
         const request = context.getRequest();
         const response = context.getResponse();
-        
-        const status = exception.name == 'QueryFailedError' ? 400 : exception.getStatus();
+        //console.log("exeption -> ", exception)
+        // status = exception.name == 'QueryFailedError' ? 400 : exception.getStatus();
       
         const errorResponse = {
-            code: status,
             timestamp: new Date().toLocaleDateString(),
             path: request.url,
             method: request.method,
@@ -24,6 +23,6 @@ export class HttpErrorFilter implements ExceptionFilter {
             'ExceptionFilter'
         )
 
-        response.status(status).json(errorResponse);
+        response.status(400).json(errorResponse);
     }
 }

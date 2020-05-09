@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as path from 'path';
-import 'dotenv/config';
+
 
 const options: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -10,7 +10,7 @@ const options: TypeOrmModuleOptions = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   entities: [
-    path.resolve(__dirname, '..', 'database', 'models', '*'),
+    path.resolve(__dirname, '..', 'database', 'entities', '*'),
     'dist/**/*.entity.js'
   ],
   migrations: [

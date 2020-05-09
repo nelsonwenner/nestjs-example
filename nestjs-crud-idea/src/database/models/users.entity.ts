@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BeforeInsert } from 'typeorm';
+import { Ideas } from 'src/database/models/ideas.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BeforeInsert, OneToMany } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import 'dotenv/config';
@@ -24,6 +25,9 @@ export class Users {
 
     @CreateDateColumn({type: "timestamp"})
     update_at: Date;
+
+    @OneToMany(type => Ideas, idea => idea.author, { cascade: true })
+    ideas: Ideas[];
 
     @BeforeInsert()
     async hashPassword() {

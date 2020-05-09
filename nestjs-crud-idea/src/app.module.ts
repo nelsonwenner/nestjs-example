@@ -6,6 +6,7 @@ import { RepositoryModule } from './core/repository/repository.module';
 import * as ormOptions from './config/ormconfig';
 import { APP_FILTER } from '@nestjs/core';
 import { UsersModule } from './core/users/users.module';
+import { CommentsModule } from './core/comments/comments.module';
 
 
 @Module({
@@ -13,7 +14,8 @@ import { UsersModule } from './core/users/users.module';
     TypeOrmModule.forRoot(ormOptions),
     RepositoryModule,
     IdeasModule,
-    UsersModule
+    UsersModule,
+    CommentsModule
   ],
   providers: [
     {

@@ -1,3 +1,4 @@
+import { ArticleModule } from './core/article/article.module';
 import { UserModule } from './core/user/user.module';
 import { AuthModule } from './core/auth/auth.module';
 import { Module } from '@nestjs/common';
@@ -10,7 +11,8 @@ import * as ormOptions from './config/ormconfig';
     TypeOrmModule.forRoot(ormOptions),
     RepositoryModule, 
     AuthModule,
-    UserModule
+    UserModule,
+    ArticleModule
   ],
   providers: [],
 })

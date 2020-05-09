@@ -11,7 +11,7 @@ export class AuthController {
   async register(@Body(ValidationPipe) credentials: RegisterDTO) {
     return this.authService.register(credentials);
   }
-
+  
   @Post('/login')
   async login(@Body(ValidationPipe) credentials: LoginDTO) {
     return this.authService.login(credentials);

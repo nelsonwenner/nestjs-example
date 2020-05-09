@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm';
 import { Exclude, classToPlain } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
 
@@ -9,7 +9,7 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({unique: true})
   username: string;
 
   @Column({unique: true})
@@ -41,10 +41,21 @@ export class UserEntity {
   }
 
   toResponseObject() {
-    const { id, username, email, bio, created_at, update_at } = this;
-    return { id, username, email, bio, created_at, update_at }
+    const { id, username, email, bio, followers, following, created_at, update_at } = this;
+    return { id, username, email, bio, followers, following, created_at, update_at }
+  }
+  
+  toProfile(user: UserEntity) {
+    const following = this.followers.includes(user);
+    const profile: any = this.toResponseObject();
+    delete profile.followers;
+    return { ...profile, following };
   }
 
-  //@OneToMany(() => Articles, article => article.user)
-  //articles: Articles[]
+  @ManyToMany(type => UserEntity, user => user.following)
+  @JoinTable()
+  followers: UserEntity[];
+
+  @ManyToMany(type => UserEntity, user => user.followers)
+  following: UserEntity[];
 }

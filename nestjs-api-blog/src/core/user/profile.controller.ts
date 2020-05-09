@@ -1,8 +1,8 @@
 import { OptionalAuthGuard } from './../auth/optional.auth.guard';
-import { AuthGuard } from '@nestjs/passport';
-import { UserEntity } from './../../database/entities/user.entity';
-import { User } from './../auth/user.decorator';
 import { Controller, Get, Param, NotFoundException, Post, UseGuards, Delete } from '@nestjs/common';
+import { UserEntity } from '../../database/entities/user.entity';
+import { User } from '../auth/user.decorator';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 
 

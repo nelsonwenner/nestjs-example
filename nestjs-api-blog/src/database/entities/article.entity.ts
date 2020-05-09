@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany, CreateDateColumn, ManyToMany, JoinTable, ManyToOne, RelationCount } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, CreateDateColumn, ManyToMany, JoinTable, ManyToOne, RelationCount } from 'typeorm';
 import { classToPlain } from 'class-transformer';
 import { UserEntity } from './user.entity';
 import * as slugify from 'slug';

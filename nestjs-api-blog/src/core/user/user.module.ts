@@ -1,8 +1,9 @@
 import { ProfileController } from './profile.controller';
-import { AuthModule } from './../auth/auth.module';
-import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
+import { AuthModule } from '../auth/auth.module';
 import { UserService } from './user.service';
+import { Module } from '@nestjs/common';
+
 
 @Module({
   imports: [

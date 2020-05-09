@@ -1,8 +1,8 @@
-import { ArticleEntity } from './../../database/entities/article.entity';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ArticleEntity } from '../../database/entities/article.entity';
 import { UserEntity } from '../../database/entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
 
 
 @Injectable()

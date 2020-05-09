@@ -46,6 +46,7 @@ export class UserEntity {
   }
   
   toProfile(user: UserEntity) {
+    delete user.password;
     const following = this.followers.includes(user);
     const profile: any = this.toResponseObject();
     delete profile.followers;

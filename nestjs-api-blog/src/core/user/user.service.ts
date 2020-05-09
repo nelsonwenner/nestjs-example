@@ -1,7 +1,7 @@
 import { UserEntity } from './../../database/entities/user.entity';
 import { UpdateUserDTO } from './../../database/models/user.dto';
 import { RepositoryService } from './../repository/repository.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -23,6 +23,11 @@ export class UserService {
       where: { username },
       relations: ['followers'],
     });
+
+    const isFollow = user.followers.find(user => user.id == currentUser.id);
+    
+    if (isFollow) { throw new UnauthorizedException(); }
+
     user.followers.push(currentUser);
     await this.repoRepository.userRepository.save(user);
     return user.toProfile(currentUser);

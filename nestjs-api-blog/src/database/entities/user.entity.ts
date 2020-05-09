@@ -49,7 +49,7 @@ export class UserEntity {
     delete user.password;
     const following = this.followers.includes(user);
     const profile: any = this.toResponseObject();
-    delete profile.followers;
+    //delete profile.followers;
     return { ...profile, following };
   }
 

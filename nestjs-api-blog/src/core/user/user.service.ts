@@ -1,6 +1,6 @@
-import { UserEntity } from './../../database/entities/user.entity';
-import { UpdateUserDTO } from './../../database/models/user.dto';
-import { RepositoryService } from './../repository/repository.service';
+import { UserEntity } from '../../database/entities/user.entity';
+import { UpdateUserDTO } from '../../database/models/user.dto';
+import { RepositoryService } from '../repository/repository.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()

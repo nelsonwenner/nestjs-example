@@ -1,15 +1,30 @@
-import { CreateArticleDTO, UpdateArticleDTO } from './../../database/models/article.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { User } from './../auth/user.decorator';
-import { UserEntity } from './../../database/entities/user.entity';
-import { OptionalAuthGuard } from './../auth/optional.auth.guard';
+import { Controller, Get, UseGuards, Param, Post, ValidationPipe, Body, Put, Delete, Query } from '@nestjs/common';
+import { CreateArticleDTO, UpdateArticleDTO, FindAllQuery, FindFeedQuery  } from '../../database/models/article.dto';
+import { UserEntity } from '../../database/entities/user.entity';
+import { OptionalAuthGuard } from '../auth/optional.auth.guard';
 import { ArticleService } from './article.service';
-import { Controller, Get, UseGuards, Param, Post, ValidationPipe, Body, Put, Delete } from '@nestjs/common';
+import { User } from '../auth/user.decorator';
+import { AuthGuard } from '@nestjs/passport';
+
 
 @Controller('articles')
 export class ArticleController {
 
   constructor(private articleService: ArticleService) {}
+
+  @Get()
+  @UseGuards(new OptionalAuthGuard())
+  async findAll(@User() user: UserEntity, @Query() query: FindAllQuery) {
+    const articles = await this.articleService.findAll(user, query);
+    return { articles, articlesCount: articles.length };
+  }
+
+  @Get('/feed')
+  @UseGuards(AuthGuard())
+  async findFeed(@User() user: UserEntity, @Query() query: FindFeedQuery) {
+    const articles = await this.articleService.findFeed(user, query);
+    return { articles, articlesCount: articles.length };
+  }
 
   @Get('/:slug')
   @UseGuards(new OptionalAuthGuard())
@@ -36,6 +51,20 @@ export class ArticleController {
   @UseGuards(AuthGuard())
   async deleteArticle(@Param() slug: any, @User() user: UserEntity) {
     const article = await this.articleService.deleteArticle(slug, user);
+    return { article };
+  }
+
+  @Post('/:slug/favorite')
+  @UseGuards(AuthGuard())
+  async favoriteArticle(@Param('slug') slug: any, @User() user: UserEntity) {
+    const article = await this.articleService.favoriteArticle(slug, user);
+    return { article };
+  }
+
+  @Delete('/:slug/unfavorite')
+  @UseGuards(AuthGuard())
+  async unfavoriteArticle(@Param('slug') slug: any, @User() user: UserEntity) {
+    const article = await this.articleService.unfavoriteArticle(slug, user);
     return { article };
   }
 

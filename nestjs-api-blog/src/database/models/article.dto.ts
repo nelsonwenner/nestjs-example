@@ -1,3 +1,4 @@
+import { ProfileResponse } from './user.dto';
 import { IsString, IsArray, IsOptional } from 'class-validator';
 
 export class CreateArticleDTO {
@@ -30,4 +31,28 @@ export class UpdateArticleDTO {
   @IsArray()
   @IsOptional()
   tagList: string[];
+}
+
+export interface FindFeedQuery {
+  limit?: number;
+  offset?: number;
+}
+
+export interface FindAllQuery extends FindFeedQuery {
+  tag?: string;
+  author?: string;
+  favorited?: string;
+}
+
+export interface ArticleResponse {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+  createdAt: Date | string;
+  updatedAt: Date | string;
+  favorited: boolean | null;
+  favoritesCount: number;
+  author: ProfileResponse;
 }

@@ -15,7 +15,7 @@ export class AuthService {
     try {
       const user = await this.repoService.userRepository.create(data);
       await this.repoService.userRepository.save(user);
-      return {user: {...user.toJSOM()}};
+      return {user: {...user.toResponseObject()}};
     } catch (error) {
       throw new InternalServerErrorException();
     }
@@ -28,7 +28,7 @@ export class AuthService {
         const payload = {id: user.id, username: user.username, email: user.email};
         const token = this.jwtService.sign(payload);
         await this.repoService.userRepository.save(user);
-        return {user: {...user.toJSOM(), token: token}};
+        return {user: {...user.toResponseObject(), token: token}};
       }
       throw new UnauthorizedException('Invalid Credentials')
     } catch (error) {

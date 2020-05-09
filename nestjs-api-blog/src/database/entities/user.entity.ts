@@ -40,8 +40,9 @@ export class UserEntity {
       return await bcrypt.compare(attempt, this.password);
   }
 
-  toJSOM() {
-      return classToPlain(this);
+  toResponseObject() {
+    const { id, username, email, bio, created_at, update_at } = this;
+    return { id, username, email, bio, created_at, update_at }
   }
 
   //@OneToMany(() => Articles, article => article.user)

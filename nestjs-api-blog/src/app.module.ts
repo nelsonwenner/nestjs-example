@@ -1,3 +1,4 @@
+import { UserModule } from './core/user/user.module';
 import { AuthModule } from './core/auth/auth.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -8,7 +9,8 @@ import * as ormOptions from './config/ormconfig';
   imports: [
     TypeOrmModule.forRoot(ormOptions),
     RepositoryModule, 
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   providers: [],
 })

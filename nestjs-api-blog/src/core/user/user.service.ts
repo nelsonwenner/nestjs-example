@@ -38,7 +38,7 @@ export class UserService {
       where: { username },
       relations: ['followers'],
     });
-    user.followers = user.followers.filter(follower => follower !== currentUser);
+    user.followers = user.followers.filter(follower => follower.id !== currentUser.id);
     await this.repoRepository.userRepository.save(user);
     return user.toProfile(currentUser);
   }

@@ -1,5 +1,6 @@
-import { ProfileResponse } from './user.dto';
 import { IsString, IsArray, IsOptional } from 'class-validator';
+import { ProfileResponse } from './user.dto';
+
 
 export class CreateArticleDTO {
   @IsString()

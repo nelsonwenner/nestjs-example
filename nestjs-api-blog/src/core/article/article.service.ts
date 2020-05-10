@@ -1,8 +1,8 @@
 import { FindAllQuery, FindFeedQuery, CreateArticleDTO, UpdateArticleDTO } from '../../database/models/article.dto';
 import { ArticleEntity } from '../../database/entities/article.entity';
-import { UserEntity } from '../../database/entities/user.entity';
 import { RepositoryService } from '../repository/repository.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { UserEntity } from '../../database/entities/user.entity';
 import { Like } from 'typeorm/find-options/operator/Like';
 
 
@@ -18,7 +18,6 @@ export class ArticleService {
   }
 
   private ensureOwnership(user: UserEntity, article: ArticleEntity): boolean {
-    
     return article.author.id === user.id;
   }
 

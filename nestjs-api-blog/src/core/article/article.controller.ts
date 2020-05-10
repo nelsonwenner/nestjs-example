@@ -1,8 +1,9 @@
-import { Controller, Get, UseGuards, Param, Post, ValidationPipe, Body, Put, Delete, Query } from '@nestjs/common';
 import { CreateArticleDTO, UpdateArticleDTO, FindAllQuery, FindFeedQuery  } from '../../database/models/article.dto';
+import { Controller, Get, UseGuards, Param, Post, ValidationPipe, Body, Put, Delete, Query } from '@nestjs/common';
 import { UserEntity } from '../../database/entities/user.entity';
 import { OptionalAuthGuard } from '../auth/optional.auth.guard';
 import { ArticleService } from './article.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { User } from '../auth/user.decorator';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -13,6 +14,7 @@ export class ArticleController {
   constructor(private articleService: ArticleService) {}
 
   @Get()
+  @ApiBearerAuth()
   @UseGuards(new OptionalAuthGuard())
   async findAll(@User() user: UserEntity, @Query() query: FindAllQuery) {
     const articles = await this.articleService.findAll(user, query);
@@ -20,6 +22,7 @@ export class ArticleController {
   }
 
   @Get('/feed')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async findFeed(@User() user: UserEntity, @Query() query: FindFeedQuery) {
     const articles = await this.articleService.findFeed(user, query);
@@ -34,6 +37,7 @@ export class ArticleController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async createArticle(@User() user: UserEntity, @Body(ValidationPipe) data: CreateArticleDTO ) {
     const article = await this.articleService.createArticle(user, data);
@@ -41,6 +45,7 @@ export class ArticleController {
   }
 
   @Put('/:slug')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async updateArticle(@Param('slug') slug: string, @User() user: UserEntity, @Body(ValidationPipe) data: UpdateArticleDTO ) {
     const article = await this.articleService.updateArticle(slug, user, data);
@@ -48,6 +53,7 @@ export class ArticleController {
   }
 
   @Delete('/:slug')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async deleteArticle(@Param() slug: any, @User() user: UserEntity) {
     const article = await this.articleService.deleteArticle(slug, user);
@@ -55,6 +61,7 @@ export class ArticleController {
   }
 
   @Post('/:slug/favorite')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async favoriteArticle(@Param('slug') slug: any, @User() user: UserEntity) {
     const article = await this.articleService.favoriteArticle(slug, user);
@@ -62,6 +69,7 @@ export class ArticleController {
   }
 
   @Delete('/:slug/unfavorite')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async unfavoriteArticle(@Param('slug') slug: any, @User() user: UserEntity) {
     const article = await this.articleService.unfavoriteArticle(slug, user);

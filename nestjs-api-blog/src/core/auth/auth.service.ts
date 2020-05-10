@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { RepositoryService } from './../repository/repository.service';
-import { LoginDTO } from './../../database/models/user.dto';
 import { RegisterDTO } from '../../database/models/user.dto';
+import { LoginDTO } from './../../database/models/user.dto';
 import { JwtService } from '@nestjs/jwt';
 
 

@@ -18,9 +18,13 @@
 # Getting Started
 1. Fork this repository and clone on your machine
 2. Change the directory to `nestjs-example` where you cloned it;
-3. Run docker:
+3. At the terminal, run:
 
 ```bash
+/* Environment variables */
+
+$ cp .env.example .env
+
 /* container up */
 
 $ docker-compose up

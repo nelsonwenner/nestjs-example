@@ -1,6 +1,7 @@
 import { OptionalAuthGuard } from './../auth/optional.auth.guard';
 import { Controller, Get, Param, NotFoundException, Post, UseGuards, Delete } from '@nestjs/common';
 import { UserEntity } from '../../database/entities/user.entity';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { User } from '../auth/user.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
@@ -22,6 +23,7 @@ export class ProfileController {
   }
 
   @Post('/:username/follow')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async followUser(@User() user: UserEntity,@Param('username') username: string) {
     const profile = await this.userService.followUser(user, username);
@@ -29,6 +31,7 @@ export class ProfileController {
   }
 
   @Delete('/:username/unfollow')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async unfollowUser(@User() user: UserEntity, @Param('username') username: string) {
     const profile = await this.userService.unfollowUser(user, username);
